@@ -2,8 +2,6 @@ use Mix.Config
 
 # Configure your database
 config :salsa, Salsa.Repo,
-  username: "postgres",
-  password: "postgres",
   database: "salsa_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

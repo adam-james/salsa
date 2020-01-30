@@ -7,5 +7,7 @@ defmodule SalsaWeb.Router do
 
   scope "/api", SalsaWeb do
     pipe_through :api
+
+    resources "/tasks", TaskController, except: [:new, :edit]
   end
 end
