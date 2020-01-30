@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  db:
+    image: 'postgres'
+
+  web:
+    build:
+      context: .
+      target: app
+    ports:
+      - 4000:4000
+    stdin_open: true
+    tty: true
+    environment:
+      SECRET_KEY_BASE: thisisnotbestpractice
+      DATABASE_URL: postgres://postgres:postgres@db/salsa_prod
+    depends_on:
+      - db
