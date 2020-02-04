@@ -22,6 +22,7 @@ RUN mix deps.compile
 
 # build project
 COPY lib lib
+COPY priv priv
 RUN mix compile
 
 # build release (uncomment COPY if rel/ exists)
@@ -30,7 +31,7 @@ RUN mix release
 
 # prepare release image
 FROM alpine:3.9 AS app
-RUN apk add --update bash openssl
+RUN apk add --update bash openssl postgresql-client
 
 RUN mkdir /app
 WORKDIR /app
@@ -40,4 +41,7 @@ RUN chown -R nobody: /app
 USER nobody
 
 ENV HOME=/app
-CMD [ "bin/salsa", "start" ]
+
+COPY entrypoint.sh .
+
+CMD [ "/bin/bash", "entrypoint.sh" ]
