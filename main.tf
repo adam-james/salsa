@@ -4,6 +4,7 @@ variable "client_id" {}
 variable "client_secret" {}
 variable "admin_name" {}
 variable "admin_password" {}
+variable "my_ip" {}
 
 variable "location" {
   description = "Azure Region"
@@ -51,7 +52,15 @@ resource "azurerm_postgresql_firewall_rule" "allow_all_ips" {
   resource_group_name = azurerm_resource_group.salsa_rg.name
   server_name         = azurerm_postgresql_server.salsa_db.name
   start_ip_address    = "0.0.0.0"
-  end_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}
+
+resource "azurerm_postgresql_firewall_rule" "allow_my_ips" {
+  name                = "AllowMyIP"
+  resource_group_name = azurerm_resource_group.salsa_rg.name
+  server_name         = azurerm_postgresql_server.salsa_db.name
+  start_ip_address    = var.my_ip
+  end_ip_address      = var.my_ip
 }
 
 resource "azurerm_kubernetes_cluster" "salsa_cluster" {

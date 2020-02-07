@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# TODO can you do this in Terraform?
-
 source ./bin/secret.sh
 
 echo Creating database and database user...
