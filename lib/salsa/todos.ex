@@ -21,6 +21,12 @@ defmodule Salsa.Todos do
     Repo.all(Task)
   end
 
+  def list_tasks(completed) do
+    Repo.all(
+      from t in Task, where: t.completed == ^completed
+    )
+  end
+
   @doc """
   Gets a single task.
 

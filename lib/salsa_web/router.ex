@@ -5,9 +5,12 @@ defmodule SalsaWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", SalsaWeb do
+  scope "/api" do
     pipe_through :api
 
-    resources "/tasks", TaskController, except: [:new, :edit]
+    resources "/tasks", SalsaWeb.TaskController, except: [:new, :edit]
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: SalsaWeb.Schema
+    forward "/graphql", Absinthe.Plug, schema: SalsaWeb.Schema
   end
 end

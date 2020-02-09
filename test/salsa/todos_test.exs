@@ -24,6 +24,14 @@ defmodule Salsa.TodosTest do
       assert Todos.list_tasks() == [task]
     end
 
+    test "list_tasks/1 filters by completed and noncompleted tasks" do
+      completed_task = task_fixture(%{ completed: true })
+      noncompleted_task = task_fixture(%{ completed: false })
+
+      assert Todos.list_tasks(true) == [completed_task]      
+      assert Todos.list_tasks(false) == [noncompleted_task]      
+    end
+
     test "get_task!/1 returns the task with given id" do
       task = task_fixture()
       assert Todos.get_task!(task.id) == task
