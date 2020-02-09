@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: salsa-web
-          image: salsacr.azurecr.io/salsa-web:latest
+          image: salsacr.azurecr.io/salsa-release:latest
           resources:
             requests:
               cpu: 250m

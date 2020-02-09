@@ -14,7 +14,7 @@ az acr login --name $registry
 echo
 
 echo Building images...
-docker build -t salsa-web .
+docker build -t salsa-release .
 echo
 
 echo Fetching login server info...
@@ -22,11 +22,11 @@ loginServer=$(az acr list --resource-group $rg --query "[].{acrLoginServer:login
 echo
 
 echo Tagging images...
-docker tag salsa-web $loginServer/salsa-web:latest
+docker tag salsa-release $loginServer/salsa-release:latest
 echo
 
 echo Pushing images...
-docker push $loginServer/salsa-web:latest
+docker push $loginServer/salsa-release:latest
 echo
 
 echo DONE
