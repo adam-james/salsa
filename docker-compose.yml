@@ -6,17 +6,27 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - ./server/tmp/db:/var/lib/postgresql/data
 
-  web:
+  server:
     build:
-      context: .
+      context: ./server
       dockerfile: Dockerfile.dev
     ports:
       - 4000:4000
     stdin_open: true
     tty: true
     volumes:
-      - .:/app
+      - ./server:/app
     depends_on:
       - db
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/app
+    depends_on:
+      - server
