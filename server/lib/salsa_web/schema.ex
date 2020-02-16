@@ -12,6 +12,10 @@ defmodule SalsaWeb.Schema do
       resolve &Resolvers.Todos.list_tasks/3
     end
 
+    @desc "Get all moves"
+    field :moves, list_of(:move) do
+      resolve &Resolvers.Moves.list_moves/3
+    end
   end
 
   mutation do
@@ -22,6 +26,15 @@ defmodule SalsaWeb.Schema do
       arg :description, non_null(:string)
 
       resolve &Resolvers.Todos.create_task/3
+    end
+
+    @desc "Create a move"
+    field :create_move, type: :move do
+      arg :name, non_null(:string)
+      arg :notes, non_null(:string)
+      arg :type, non_null(:move_type)
+
+      resolve &Resolvers.Moves.create_move/3
     end
   end
 end

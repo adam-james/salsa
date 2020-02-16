@@ -6,4 +6,18 @@ defmodule SalsaWeb.Schema.TodosTypes do
     field :completed, :boolean
     field :description, :string
   end
+
+  @desc "The type of move."
+  enum :move_type do
+    value :step, description: "A step."
+    value :turn, description: "A turn or spin."
+  end
+
+  @desc "A move."
+  object :move do
+    field :id, :id
+    field :type, :move_type
+    field :name, :string
+    field :notes, :string
+  end
 end

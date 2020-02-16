@@ -42,7 +42,8 @@ defmodule Salsa.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:absinthe_plug, "~> 1.4.0"},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:ecto_enum, "~> 1.4"}
     ]
   end
 
