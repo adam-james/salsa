@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
+import { useMutation } from '@apollo/react-hooks'
+import {
+  Link,
+  navigate,
+  RouteComponentProps
+} from '@reach/router'
 import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from '@apollo/react-hooks'
+import { Move } from './types'
 import {
   Button,
   Form,
@@ -9,57 +15,8 @@ import {
   Option,
   Select,
   Textarea
-} from './form'
-
-type SalsaStyle = 'CUBAN' | 'COLOMBIAN' | 'ON_ONE' | 'ON_TWO'
-type MoveType = 'TURN' | 'STEP'
-
-type Move = {
-  id: string,
-  name: string,
-  notes: string,
-  style: SalsaStyle,
-  type: MoveType,
-}
-
-const MoveListItem = ({ move }: { move: Move }) => {
-  return (
-    <li>{move.name} -- {move.type} -- {move.style}</li>
-  )
-}
-
-const MOVE_LIST = gql`
-  {
-    moves {
-      id,
-      name,
-      notes,
-      style,
-      type
-    }
-  }
-`
-
-type MoveListData = {
-  moves: Move[]
-}
-
-const MoveList = () => {
-  const { loading, error, data } = useQuery<MoveListData>(MOVE_LIST) 
-
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error :(</p>
-
-  return (
-    <ul>
-      {data && data.moves.map((move: Move) => {
-        return (
-          <MoveListItem move={move} key={move.id} />
-        )
-      })}
-    </ul>
-  )
-}
+} from '../components/form'
+import { MOVE_LIST } from './list'
 
 const ADD_MOVE = gql`
   mutation($type: MoveType!, $name: String!, $notes: String!, $style: SalsaStyle!) {
@@ -104,6 +61,8 @@ const MoveForm = () => {
     setNotes('')
     setMoveType('STEP')
     setSalsaStyle('COLOMBIAN')
+
+    navigate('/')
   }
 
   return (
@@ -166,14 +125,14 @@ const MoveForm = () => {
   )
 }
 
-const Moves = () => {
+const MovesNew = (props: RouteComponentProps) => {
   return (
-    <section className="moves">
-      <h2>Moves</h2>
+    <>
+      <h2>New Move</h2>
+      <Link to="/">Back</Link>
       <MoveForm />
-      <MoveList />
-    </section>
+    </>
   )
 }
 
-export default Moves
+export default MovesNew
