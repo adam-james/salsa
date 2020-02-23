@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from '@apollo/react-hooks'
+import {
+  Button,
+  Form,
+  Input,
+  Label,
+  Option,
+  Select,
+  Textarea
+} from './form'
 
 type SalsaStyle = 'CUBAN' | 'COLOMBIAN' | 'ON_ONE' | 'ON_TWO'
 type MoveType = 'TURN' | 'STEP'
@@ -98,9 +107,9 @@ const MoveForm = () => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="name">Name</label>
-      <input
+    <Form onSubmit={onSubmit}>
+      <Label htmlFor="name">Name</Label>
+      <Input
         type="text"
         name="name"
         id="name"
@@ -111,8 +120,8 @@ const MoveForm = () => {
         }}
       />
 
-      <label htmlFor="notes">Notes</label>
-      <textarea
+      <Label htmlFor="notes">Notes</Label>
+      <Textarea
         name="notes"
         id="notes"
         value={notes}
@@ -122,8 +131,8 @@ const MoveForm = () => {
         }}
       />
 
-      <label htmlFor="type">Type</label>
-      <select
+      <Label htmlFor="type">Type</Label>
+      <Select
         name="type"
         id="type"
         value={moveType}
@@ -132,12 +141,12 @@ const MoveForm = () => {
           setMoveType(value)
         }}
       >
-        <option value="STEP">Step</option>
-        <option value="TURN">Turn</option>
-      </select>
+        <Option value="STEP">Step</Option>
+        <Option value="TURN">Turn</Option>
+      </Select>
 
-      <label htmlFor="style">Style</label>
-      <select
+      <Label htmlFor="style">Style</Label>
+      <Select
         name="style"
         id="style"
         value={salsaStyle}
@@ -146,14 +155,14 @@ const MoveForm = () => {
           setSalsaStyle(value)
         }}
       >
-        <option value="COLOMBIAN">Colombian</option>
-        <option value="CUBAN">Cuban</option>
-        <option value="ON_ONE">On One</option>
-        <option value="ON_TWO">On Two</option>
-      </select>
+        <Option value="COLOMBIAN">Colombian</Option>
+        <Option value="CUBAN">Cuban</Option>
+        <Option value="ON_ONE">On One</Option>
+        <Option value="ON_TWO">On Two</Option>
+      </Select>
 
-      <button>Save</button>
-    </form>
+      <Button>Save</Button>
+    </Form>
   )
 }
 
