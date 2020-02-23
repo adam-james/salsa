@@ -12,5 +12,5 @@ defmodule Salsa.Moves do
     %Move{}
     |> Move.changeset(attrs)
     |> Repo.insert()
-  end  
+  end
 end

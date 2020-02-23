@@ -9,6 +9,5 @@ defmodule Salsa.Repo.Migrations.CreateMoves do
 
       timestamps()
     end
-
   end
 end

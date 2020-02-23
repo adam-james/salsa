@@ -11,8 +11,6 @@ defmodule SalsaWeb.TaskView do
   end
 
   def render("task.json", %{task: task}) do
-    %{id: task.id,
-      description: task.description,
-      completed: task.completed}
+    %{id: task.id, description: task.description, completed: task.completed}
   end
 end

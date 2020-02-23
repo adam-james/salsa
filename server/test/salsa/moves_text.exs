@@ -6,8 +6,8 @@ defmodule Salsa.MovesTest do
   describe "moves" do
     alias Salsa.Moves.Move
 
-    @valid_attrs %{name: "name", notes: "notes", type: "step"}
-    @invalid_attrs %{name: "name", notes: "notes", type: "incorrect"}
+    @valid_attrs %{name: "name", notes: "notes", type: "step", style: "colombian"}
+    @invalid_attrs %{name: "name", notes: "notes", type: "incorrect", style: "missing"}
 
     def move_fixture(attrs \\ %{}) do
       {:ok, move} =

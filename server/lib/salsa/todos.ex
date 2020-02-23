@@ -22,9 +22,7 @@ defmodule Salsa.Todos do
   end
 
   def list_tasks(completed) do
-    Repo.all(
-      from t in Task, where: t.completed == ^completed
-    )
+    Repo.all(from t in Task, where: t.completed == ^completed)
   end
 
   @doc """

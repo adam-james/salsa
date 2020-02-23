@@ -2,18 +2,20 @@ import React, { useState } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
+type SalsaStyle = 'CUBAN' | 'COLOMBIAN' | 'ON_ONE' | 'ON_TWO'
 type MoveType = 'TURN' | 'STEP'
 
 type Move = {
   id: string,
   name: string,
   notes: string,
-  type: MoveType
+  style: SalsaStyle,
+  type: MoveType,
 }
 
 const MoveListItem = ({ move }: { move: Move }) => {
   return (
-    <li>{move.name} -- {move.type}</li>
+    <li>{move.name} -- {move.type} -- {move.style}</li>
   )
 }
 
@@ -23,6 +25,7 @@ const MOVE_LIST = gql`
       id,
       name,
       notes,
+      style,
       type
     }
   }
@@ -50,12 +53,13 @@ const MoveList = () => {
 }
 
 const ADD_MOVE = gql`
-  mutation($type: MoveType!, $name: String!, $notes: String!) {
-    createMove(type: $type, name: $name, notes: $notes) {
+  mutation($type: MoveType!, $name: String!, $notes: String!, $style: SalsaStyle!) {
+    createMove(type: $type, name: $name, notes: $notes, style: $style) {
       id,
       name,
-      type,
-      notes
+      notes,
+      style,
+      type
     }
   }
 `
@@ -64,6 +68,7 @@ const MoveForm = () => {
   const [ name, setName ] = useState('')
   const [ notes, setNotes ] = useState('')
   const [ moveType, setMoveType ] = useState('STEP')
+  const [ salsaStyle, setSalsaStyle ] = useState('COLOMBIAN')
 
   const [ addMove, _ ] = useMutation(
     ADD_MOVE,
@@ -83,12 +88,13 @@ const MoveForm = () => {
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
 
-    const variables = { name, notes, type: moveType }
+    const variables = { name, notes, type: moveType, style: salsaStyle }
     addMove({ variables })
 
     setName('')
     setNotes('')
     setMoveType('STEP')
+    setSalsaStyle('COLOMBIAN')
   }
 
   return (
@@ -128,6 +134,22 @@ const MoveForm = () => {
       >
         <option value="STEP">Step</option>
         <option value="TURN">Turn</option>
+      </select>
+
+      <label htmlFor="style">Style</label>
+      <select
+        name="style"
+        id="style"
+        value={salsaStyle}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+          const { value } = e.target
+          setSalsaStyle(value)
+        }}
+      >
+        <option value="COLOMBIAN">Colombian</option>
+        <option value="CUBAN">Cuban</option>
+        <option value="ON_ONE">On One</option>
+        <option value="ON_TWO">On Two</option>
       </select>
 
       <button>Save</button>
