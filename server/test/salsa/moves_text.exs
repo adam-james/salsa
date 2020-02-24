@@ -1,3 +1,5 @@
+# TODO why does this suite not run with mix test?
+
 defmodule Salsa.MovesTest do
   use Salsa.DataCase
 
@@ -14,10 +16,12 @@ defmodule Salsa.MovesTest do
         attrs
         |> Enum.into(@valid_attrs)
         |> Moves.create_move()
+
+      move
     end
 
     test "list_moves/0 returns all moves" do
-      {:ok, move} = move_fixture()
+      move = move_fixture()
       assert Moves.list_moves() == [move]
     end
 
